@@ -3,12 +3,7 @@
  * By Mykle1
  * MIT Licensed
  */
-convertToF: function(temp) {
-    window.alert(temp)
-    temp = temp*9/5;
-    temp = temp + 32;
-    return temp;
-}
+
 Module.register("MMM-BMW-OW", {
 
     // Module config defaults.
@@ -28,6 +23,14 @@ Module.register("MMM-BMW-OW", {
         retryDelay: 2500,
         updateInterval: 5 * 60 * 1000,
     },
+
+    // Function to
+    convertToF: function(temp) {
+        window.alert(temp)
+        temp = temp*9/5;
+        temp = temp + 32;
+        return temp;
+    }
 
     // Gets correct css file from config.js
     getStyles: function() {
@@ -88,9 +91,9 @@ Module.register("MMM-BMW-OW", {
                 "<img class = image src=./modules/MMM-BMW-OW/icons/" + forecast.current.weather[0].main + ".png>" +
                 "&nbsp " +
 
-                Math.round(convertToF(forecast.current.temp)) + "°" + " &nbsp &nbsp &nbsp &nbsp " +
+                Math.round(this.convertToF(forecast.current.temp)) + "°" + " &nbsp &nbsp &nbsp &nbsp " +
 
-                " Feels like " + Math.round(convertToF(forecast.current.feels_like)) + "°" +
+                " Feels like " + Math.round(this.convertToF(forecast.current.feels_like)) + "°" +
 
                 " &nbsp &nbsp &nbsp &nbsp Wind @ " +
 
