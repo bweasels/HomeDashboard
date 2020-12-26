@@ -43,20 +43,52 @@ var config = {
             }
         },
         {
-            module: "clock",
-            position: "top_left"
+            disabled: false,
+            module: 'MMM-BMW-OW',
+            position: 'bottom_bar',
+            config: {
+                api: '409926904d27e87ba6ca87a43aae1de1',
+                ownTitle: "Current Conditions",
+                lat: '40.808090',
+                lon: '-73.959750',
+                css: '2',
+                playSounds: 'no',
+                useHeader: false,
+                maxWidth: '85%',
+                updateInterval: 5 * 60 * 1000,
+            }
         },
         {
-            module: "calendar",
-            header: "US Holidays",
-            position: "top_left",
+            module: 'MMM-nyc-transit',
+            position: 'top_right',
+            header: 'Next Train',
             config: {
-                calendars: [
+                apiKey: '',
+                displayType: 'list',
+                mtaType: 'train',
+                stations: [
                     {
-                        symbol: "calendar-check",
-                        url: "webcal://www.calendarlabs.com/ical-calendar/ics/76/US_Holidays.ics"					}
+                        stationID: 307,
+                        walkingTime: 5,
+                        dir: {
+                            upTown: false,
+                            downTown: true
+                        }
+                    },
+                    {
+                        stationID: 393,
+                        walkingTime: 12,
+                        dir: {
+                            upTown: false,
+                            downTown: true
+                        }
+                    }
                 ]
             }
+        },
+        {
+            module: "clock",
+            position: "top_left"
         },
     ]
 };
