@@ -26,11 +26,15 @@ Module.register("MMM-BMW-OW", {
 
     // Function to
     convertToF: function(temp) {
-        window.alert(temp)
         temp = temp*9/5;
         temp = temp + 32;
         return temp;
     },
+
+    convertToMPH: function(speed) {
+        speed = speed/1.6;
+        return speed;
+    }
 
     // Gets correct css file from config.js
     getStyles: function() {
@@ -97,7 +101,7 @@ Module.register("MMM-BMW-OW", {
 
                 " &nbsp &nbsp &nbsp &nbsp Wind @ " +
 
-                Math.round(forecast.current.wind_speed) +
+                Math.round(this.convertToMPH(forecast.current.wind_speed)) +
 
                 " &nbsp &nbsp &nbsp &nbsp " +
 
@@ -116,25 +120,25 @@ Module.register("MMM-BMW-OW", {
             daily.classList.add("small", "bright", "daily");
             daily.innerHTML =
 
-                moment.unix(forecast.daily[0].sunrise).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-OW/icons/" + forecast.daily[0].weather[0].main + ".png>" + " &nbsp" + Math.round(forecast.daily[0].temp.max) + "/" + Math.round(forecast.daily[0].temp.min) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+                moment.unix(forecast.daily[0].sunrise).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-OW/icons/" + forecast.daily[0].weather[0].main + ".png>" + " &nbsp" + Math.round(this.convertToF(forecast.daily[0].temp.max)) + "/" + Math.round(this.convertToF(forecast.daily[0].temp.min)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
 
 
-                moment.unix(forecast.daily[1].sunrise).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-OW/icons/" + forecast.daily[1].weather[0].main + ".png>" + " &nbsp" + Math.round(forecast.daily[1].temp.max) + "/" + Math.round(forecast.daily[1].temp.min) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+                moment.unix(forecast.daily[1].sunrise).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-OW/icons/" + forecast.daily[1].weather[0].main + ".png>" + " &nbsp" + Math.round(this.convertToF(forecast.daily[1].temp.max)) + "/" + Math.round(this.convertToF(forecast.daily[1].temp.min)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
 
 
-                moment.unix(forecast.daily[2].sunrise).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-OW/icons/" + forecast.daily[2].weather[0].main + ".png>" + " &nbsp" + Math.round(forecast.daily[2].temp.max) + "/" + Math.round(forecast.daily[2].temp.min) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+                moment.unix(forecast.daily[2].sunrise).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-OW/icons/" + forecast.daily[2].weather[0].main + ".png>" + " &nbsp" + Math.round(this.convertToF(forecast.daily[2].temp.max)) + "/" + Math.round(this.convertToF(forecast.daily[2].temp.min)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
 
 
-                moment.unix(forecast.daily[3].sunrise).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-OW/icons/" + forecast.daily[3].weather[0].main + ".png>" + " &nbsp" + Math.round(forecast.daily[3].temp.max) + "/" + Math.round(forecast.daily[3].temp.min) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+                moment.unix(forecast.daily[3].sunrise).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-OW/icons/" + forecast.daily[3].weather[0].main + ".png>" + " &nbsp" + Math.round(this.convertToF(forecast.daily[3].temp.max)) + "/" + Math.round(this.convertToF(forecast.daily[3].temp.min)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
 
 
-                moment.unix(forecast.daily[4].sunrise).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-OW/icons/" + forecast.daily[4].weather[0].main + ".png>" + " &nbsp" + Math.round(forecast.daily[4].temp.max) + "/" + Math.round(forecast.daily[4].temp.min) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+                moment.unix(forecast.daily[4].sunrise).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-OW/icons/" + forecast.daily[4].weather[0].main + ".png>" + " &nbsp" + Math.round(this.convertToF(forecast.daily[4].temp.max)) + "/" + Math.round(this.convertToF(forecast.daily[4].temp.min)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
 
 
-                moment.unix(forecast.daily[5].sunrise).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-OW/icons/" + forecast.daily[5].weather[0].main + ".png>" + " &nbsp" + Math.round(forecast.daily[5].temp.max) + "/" + Math.round(forecast.daily[5].temp.min) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+                moment.unix(forecast.daily[5].sunrise).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-OW/icons/" + forecast.daily[5].weather[0].main + ".png>" + " &nbsp" + Math.round(this.convertToF(forecast.daily[5].temp.max)) + "/" + Math.round(this.convertToF(forecast.daily[5].temp.min)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
 
 
-                moment.unix(forecast.daily[6].sunrise).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-OW/icons/" + forecast.daily[6].weather[0].main + ".png>" + " &nbsp" + Math.round(forecast.daily[6].temp.max) + "/" + Math.round(forecast.daily[6].temp.min) + " &nbsp &nbsp  &nbsp &nbsp &nbsp";
+                moment.unix(forecast.daily[6].sunrise).local().format('ddd') + " &nbsp" + "<img class = image src=./modules/MMM-BMW-OW/icons/" + forecast.daily[6].weather[0].main + ".png>" + " &nbsp" + Math.round(this.convertToF(forecast.daily[6].temp.max)) + "/" + Math.round(this.convertToF(forecast.daily[6].temp.min)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp";
 
             wrapper.appendChild(daily);
 
