@@ -37,7 +37,7 @@ Module.register("MMM-BMW-OW", {
     convertToF: function(temp) {
         temp = temp*9/5;
         temp = temp + 32;
-        return(temp);
+        return temp;
     }
 
     getScripts: function() {
