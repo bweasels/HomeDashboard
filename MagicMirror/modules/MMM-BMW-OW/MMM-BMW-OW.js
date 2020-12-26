@@ -157,13 +157,13 @@ Module.register("MMM-BMW-OW", {
                 "<img class = image src=https://openweathermap.org/img/wn/" + forecast.current.weather[0].icon + ".png>" +
                 "&nbsp " +
 
-                Math.round(forecast.current.temp) + "°" + " &nbsp &nbsp &nbsp &nbsp " +
+                Math.round(this.convertToF(forecast.current.temp)) + "°" + " &nbsp &nbsp &nbsp &nbsp " +
 
-                " Feels like " + Math.round(forecast.current.feels_like) + "°" +
+                " Feels like " + Math.round(this.convertToF(forecast.current.feels_like)) + "°" +
 
                 " &nbsp &nbsp &nbsp &nbsp Wind @ " +
 
-                Math.round(forecast.current.wind_speed) +
+                Math.round(this.convertToMPH(forecast.current.wind_speed)) +
 
                 " &nbsp &nbsp &nbsp &nbsp " +
 
@@ -180,19 +180,19 @@ Module.register("MMM-BMW-OW", {
             var daily = document.createElement("div");
             daily.classList.add("small", "bright", "daily");
             daily.innerHTML =
-                moment.unix(forecast.daily[0].sunrise).local().format('ddd') + "<img class = image src=https://openweathermap.org/img/wn/" + forecast.daily[0].weather[0].icon + ".png>" + Math.round(forecast.daily[0].temp.max) + "/" + Math.round(forecast.daily[0].temp.min) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+                moment.unix(forecast.daily[0].sunrise).local().format('ddd') + "<img class = image src=https://openweathermap.org/img/wn/" + forecast.daily[0].weather[0].icon + ".png>" + Math.round(this.convertToF(forecast.daily[0].temp.max)) + "/" + Math.round(this.convertToF(forecast.daily[0].temp.min)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
 
-                moment.unix(forecast.daily[1].sunrise).local().format('ddd') + "<img class = image src=https://openweathermap.org/img/wn/" + forecast.daily[1].weather[0].icon + ".png>" + Math.round(forecast.daily[1].temp.max) + "/" + Math.round(forecast.daily[1].temp.min) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+                moment.unix(forecast.daily[1].sunrise).local().format('ddd') + "<img class = image src=https://openweathermap.org/img/wn/" + forecast.daily[1].weather[0].icon + ".png>" + Math.round(this.convertToF(forecast.daily[1].temp.max)) + "/" + Math.round(this.convertToF(forecast.daily[1].temp.min)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
 
-                moment.unix(forecast.daily[2].sunrise).local().format('ddd') + "<img class = image src=https://openweathermap.org/img/wn/" + forecast.daily[2].weather[0].icon + ".png>" + Math.round(forecast.daily[2].temp.max) + "/" + Math.round(forecast.daily[2].temp.min) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+                moment.unix(forecast.daily[2].sunrise).local().format('ddd') + "<img class = image src=https://openweathermap.org/img/wn/" + forecast.daily[2].weather[0].icon + ".png>" + Math.round(this.convertToF(forecast.daily[2].temp.max)) + "/" + Math.round(this.convertToF(forecast.daily[2].temp.min)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
 
-                moment.unix(forecast.daily[3].sunrise).local().format('ddd') + "<img class = image src=https://openweathermap.org/img/wn/" + forecast.daily[3].weather[0].icon + ".png>" + Math.round(forecast.daily[3].temp.max) + "/" + Math.round(forecast.daily[3].temp.min) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+                moment.unix(forecast.daily[3].sunrise).local().format('ddd') + "<img class = image src=https://openweathermap.org/img/wn/" + forecast.daily[3].weather[0].icon + ".png>" + Math.round(this.convertToF(forecast.daily[3].temp.max)) + "/" + Math.round(this.convertToF(forecast.daily[3].temp.min)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
 
-                moment.unix(forecast.daily[4].sunrise).local().format('ddd') + "<img class = image src=https://openweathermap.org/img/wn/" + forecast.daily[4].weather[0].icon + ".png>" + Math.round(forecast.daily[4].temp.max) + "/" + Math.round(forecast.daily[4].temp.min) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+                moment.unix(forecast.daily[4].sunrise).local().format('ddd') + "<img class = image src=https://openweathermap.org/img/wn/" + forecast.daily[4].weather[0].icon + ".png>" + Math.round(this.convertToF(forecast.daily[4].temp.max)) + "/" + Math.round(this.convertToF(forecast.daily[4].temp.min)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
 
-                moment.unix(forecast.daily[5].sunrise).local().format('ddd') + "<img class = image src=https://openweathermap.org/img/wn/" + forecast.daily[5].weather[0].icon + ".png>" + Math.round(forecast.daily[5].temp.max) + "/" + Math.round(forecast.daily[5].temp.min) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
+                moment.unix(forecast.daily[5].sunrise).local().format('ddd') + "<img class = image src=https://openweathermap.org/img/wn/" + forecast.daily[5].weather[0].icon + ".png>" + Math.round(this.convertToF(forecast.daily[5].temp.max)) + "/" + Math.round(this.convertToF(forecast.daily[5].temp.min)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp" +
 
-                moment.unix(forecast.daily[6].sunrise).local().format('ddd') + "<img class = image src=https://openweathermap.org/img/wn/" + forecast.daily[6].weather[0].icon + ".png>" + Math.round(forecast.daily[6].temp.max) + "/" + Math.round(forecast.daily[6].temp.min) + " &nbsp &nbsp  &nbsp &nbsp &nbsp";
+                moment.unix(forecast.daily[6].sunrise).local().format('ddd') + "<img class = image src=https://openweathermap.org/img/wn/" + forecast.daily[6].weather[0].icon + ".png>" + Math.round(this.convertToF(forecast.daily[6].temp.max)) + "/" + Math.round(this.convertToF(forecast.daily[6].temp.min)) + " &nbsp &nbsp  &nbsp &nbsp &nbsp";
 
             wrapper.appendChild(daily);
 
