@@ -34,6 +34,11 @@ Module.register("MMM-BMW-OW", {
         }
     },
 
+    convertToF: function(temp) {
+        temp = temp*9/5;
+        temp = temp + 32;
+        return(temp);
+    }
 
     getScripts: function() {
         return ["moment.js"];
@@ -83,9 +88,9 @@ Module.register("MMM-BMW-OW", {
                 "<img class = image src=./modules/MMM-BMW-OW/icons/" + forecast.current.weather[0].main + ".png>" +
                 "&nbsp " +
 
-                Math.round(forecast.current.temp) + "°" + " &nbsp &nbsp &nbsp &nbsp " +
+                Math.round(convertToF(forecast.current.temp)) + "°" + " &nbsp &nbsp &nbsp &nbsp " +
 
-                " Feels like " + Math.round(forecast.current.feels_like) + "°" +
+                " Feels like " + Math.round(convertToF(forecast.current.feels_like)) + "°" +
 
                 " &nbsp &nbsp &nbsp &nbsp Wind @ " +
 

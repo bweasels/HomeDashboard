@@ -52,6 +52,7 @@ var config = {
                 lat: '40.808090',
                 lon: '-73.959750',
                 css: '2',
+                icons: '2',
                 playSounds: 'no',
                 useHeader: false,
                 maxWidth: '85%',
