@@ -48,7 +48,7 @@ var config = {
             position: 'bottom_bar',
             config: {
                 api: '409926904d27e87ba6ca87a43aae1de1',
-                ownTitle: "Current Conditions",
+                ownTitle: "Current Conditions | ",
                 lat: '40.808090',
                 lon: '-73.959750',
                 css: '1',
