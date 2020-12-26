@@ -3,6 +3,12 @@
  * By Mykle1
  * MIT Licensed
  */
+convertToF: function(temp) {
+    window.alert(temp)
+    temp = temp*9/5;
+    temp = temp + 32;
+    return temp;
+}
 Module.register("MMM-BMW-OW", {
 
     // Module config defaults.
@@ -33,12 +39,6 @@ Module.register("MMM-BMW-OW", {
             return ["modules/MMM-BMW-OW/css/MMM-BMW-OW1.css"]; // default.css
         }
     },
-
-    convertToF: function(temp) {
-        temp = temp*9/5;
-        temp = temp + 32;
-        return(temp);
-    }
 
     getScripts: function() {
         return ["moment.js"];
