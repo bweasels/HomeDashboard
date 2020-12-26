@@ -30,7 +30,7 @@ Module.register("MMM-BMW-OW", {
         temp = temp*9/5;
         temp = temp + 32;
         return temp;
-    }
+    },
 
     // Gets correct css file from config.js
     getStyles: function() {
