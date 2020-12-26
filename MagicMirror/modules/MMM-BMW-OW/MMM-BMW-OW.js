@@ -34,7 +34,7 @@ Module.register("MMM-BMW-OW", {
     convertToMPH: function(speed) {
         speed = speed/1.6;
         return speed;
-    }
+    },
 
     // Gets correct css file from config.js
     getStyles: function() {
