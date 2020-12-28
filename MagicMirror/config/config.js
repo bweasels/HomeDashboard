@@ -28,6 +28,13 @@ var config = {
         {
             module: "alert",
         },
+		{
+			module: "MMM-Test",
+			position: "top_bar",
+			config: {
+				append: "Yo this shit works!"
+			}
+		},
         {
             module: "updatenotification",
             position: "top_bar"
@@ -55,11 +62,11 @@ var config = {
                 icons: '1',
                 playSounds: 'no',
                 useHeader: false,
-                maxWidth: '85%',
+                maxWidth: '100%',
                 updateInterval: 5 * 60 * 1000,
             }
         },
-        {
+        /*{
             module: 'MMM-nyc-transit',
             position: 'top_right',
             header: 'Next Train',
@@ -86,10 +93,11 @@ var config = {
                     }
                 ]
             }
-        },
+        },*/
         {
             module: "clock",
-            position: "top_left"
+            position: "top_left",
+            timeFormat: 12
         },
     ]
 };

@@ -1,18 +1,22 @@
 {
-  "name": "MMM-zigbee-monitor",
-  "version": "1.0.0",
-  "description": "Todo: Insert description here!",
-  "main": "MMM-zigbee-monitor.js",
-  "author": "bweasels",
-  "license": "MIT",
-  "devDependencies": {
-    "grunt": "latest",
-    "grunt-eslint": "latest",
-    "grunt-jsonlint": "latest",
-    "grunt-markdownlint": "^1.0.13",
-    "grunt-stylelint": "latest",
-    "grunt-yamllint": "latest",
-    "stylelint-config-standard": "latest",
-    "time-grunt": "latest"
-  }
+	"name": "MMM-zigbee-monitor",
+	"version": "1.0.0",
+	"description": "Todo: Insert description here!",
+	"main": "MMM-zigbee-monitor.js",
+	"author": "bweasels",
+	"license": "MIT",
+	"scripts": {
+		"test": "grunt-eslint"
+	},
+	"devDependencies": {
+		"eslint": "^7.16.0",
+		"grunt": "latest",
+		"grunt-eslint": "latest",
+		"grunt-jsonlint": "latest",
+		"grunt-markdownlint": "^1.0.13",
+		"grunt-stylelint": "latest",
+		"grunt-yamllint": "latest",
+		"stylelint-config-standard": "latest",
+		"time-grunt": "latest"
+	}
 }
