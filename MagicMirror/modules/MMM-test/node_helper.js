@@ -50,14 +50,14 @@ module.exports = NodeHelper.create({
 					client_state.subscribe('zigbee2mqtt/'+payload[i].name)
 					client_state.on('connect', () => {
 						client_state.publish('zigbee2mqtt/'+payload[i].name+'/get', '{"state":""}')
-						//console.log('zigbee2mqtt/'+payload[i].name+'/get' + '| {"state":""}')
 					})
 					client_state.on('message', function(topic, message) {
 						obj = JSON.parse(message)
-						//console.log(obj)
+						console.log(obj)
 					})
 
 				}
+				client_state.off()
 				break
 			default:
 				break;
