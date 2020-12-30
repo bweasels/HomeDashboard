@@ -1,34 +1,66 @@
 const mqtt = require('mqtt')
 const NodeHelper = require("node_helper")
+var obj
 
 module.exports = NodeHelper.create({
+	defaults:{
+		client: [],
+		ipAddress: ""
+	},
+
 	start: function() {
 		this.countDown = 10000000
 	},
 	socketNotificationReceived: function(notification, payload) {
 		switch(notification) {
 
+			//Original tutorial notification
 			case "DO_YOUR_JOB":
-				//var client = mqtt.connect("http://192.168.1.14")
-				//client.on("connect", function(){console.log(payload)})
-				this.sendSocketNotification("I_DID", (this.countDown - payload))
+				this.sendSocketNotification('I_DID', (this.countDown - payload))
 				break
+
+			//Get the list of devices upon startup
 			case "POLL_DEVICES":
-				var client = mqtt.connect(payload)
-				client.subscribe('zigbee2mqtt/bridge/log')
+
+				//Connect to the ip address & subscribe to the topic with output
+				this.ipAddress = payload
+				console.log(this.ipAddress)
+				let client = mqtt.connect(this.ipAddress)
+				client.subscribe('zigbee2mqtt/bridge/config/devices')
+
+				//If connected, publish to the topic to induce output
 				client.on('connect', () => {
-					client.publish('zigbee2mqtt/bridge/config/devices',
-						'{"type":"devices","message":"N/A"')
+					client.publish('zigbee2mqtt/bridge/config/devices/get',
+						'{"type":"devices","message":"N/A"}')
 				})
+
+				//When receiving message, parse it and send it back and make a copy of _this for the client.on scope
+				const _this = this
 				client.on('message', function(topic, message) {
-					//console.log(message.toString())
-					var obj = JSON.parse(message)
-					console.log(obj.message[0].friendly_name)
-					client.end()
+					obj = JSON.parse(message)
+					_this.sendSocketNotification("AVAIL_DEVICES", obj)
+					console.log(obj)
 				})
-				//console.log(client.message.toString())
-				//console.log(payload)
 				break
+
+			case "GET_STATE":
+				let states = []
+				let client_state = mqtt.connect(this.ipAddress)
+				for(let i=0; i < payload.length; i++){
+					client_state.subscribe('zigbee2mqtt/'+payload[i].name)
+					client_state.on('connect', () => {
+						client_state.publish('zigbee2mqtt/'+payload[i].name+'/get', '{"state":""}')
+						//console.log('zigbee2mqtt/'+payload[i].name+'/get' + '| {"state":""}')
+					})
+					client_state.on('message', function(topic, message) {
+						obj = JSON.parse(message)
+						//console.log(obj)
+					})
+
+				}
+				break
+			default:
+				break;
 		}
 	},
 })

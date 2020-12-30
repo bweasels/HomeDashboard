@@ -2,14 +2,18 @@
 
 Module.register("MMM-Test", {
 	defaults: {
-		append: "I'm alive!"
+		append: "I'm alive!",
+		devData: [],
+		devices: [
+			{"vendor":"Sengled", "model":"E11-N1EA", "type":"A19-Bulb.png"},
+			{"vendor":"Sengled", "model":"E1F-N5E", "type":"E12-Bulb.png"}
+		]
 	},
 
 	//Function that runs when module is loaded successfully
 	start: function () {
 		this.count = 0,
 		this.ipAddr = "http://192.168.1.14"
-
 	},
 
 	//the manner in which MM and modules communicate with eachother
@@ -18,7 +22,7 @@ Module.register("MMM-Test", {
 			case "DOM_OBJECTS_CREATED":
 				//console.log("this.ipAddr")
 				this.sendSocketNotification('POLL_DEVICES', this.ipAddr)
-				var timer = setInterval(()=>{
+				let timer_tutorial = setInterval(()=>{
 					this.sendSocketNotification("DO_YOUR_JOB", this.count)
 					this.count++
 
@@ -29,6 +33,9 @@ Module.register("MMM-Test", {
 					//If we want to directly edit the html here instead of DOM
 					//var countElm = document.getElementById("COUNT")
 					//countElm.innerHTML = "Count: " + this.count
+				}, 100)
+				let timer = setInterval(()=>{
+					this.sendSocketNotification("GET_STATE", this.devData)
 				}, 1000)
 				break
 		}
@@ -36,8 +43,25 @@ Module.register("MMM-Test", {
 	socketNotificationReceived: function(notification, payload) {
 		switch(notification) {
 			case "I_DID":
-				var elem = document.getElementById("COUNT")
+				let elem = document.getElementById("COUNT")
 				elem.innerHTML = "Count: " + payload
+				break
+			case "AVAIL_DEVICES":
+				//create a temporary variable to hold output from polled devices
+				let jsonData = []
+
+				//For each returned device strip to essential ID info
+				for (let i=1; i < payload.length; i++) {
+					let temp = {
+						"name": payload[i].friendly_name,
+						"model": payload[i].model,
+						"vendor": payload[i].vendor
+					}
+					jsonData.push(temp)
+				}
+
+				//Save the pared down data to the top level variable
+				this.devData = jsonData
 				break
 		}
 	},
@@ -56,6 +80,12 @@ Module.register("MMM-Test", {
 		//make sub element a child of main element
 		element.appendChild(subElement)
 		return(element)
+	},
+
+	addDevices: function() {
+
+		//I'm so sorry, but this contains the entire database of zigbee devices.....
+
 	}
 })
 
