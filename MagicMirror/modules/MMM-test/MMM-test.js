@@ -3,7 +3,6 @@
 Module.register("MMM-Test", {
 	defaults: {
 		append: "I'm alive!",
-		devData: [],
 		devices: [
 			{"vendor":"Sengled", "model":"E11-N1EA", "type":"A19-Bulb.png"},
 			{"vendor":"Sengled", "model":"E1F-N5E", "type":"E12-Bulb.png"}
@@ -13,18 +12,19 @@ Module.register("MMM-Test", {
 	//Function that runs when module is loaded successfully
 	start: function () {
 		this.count = 0,
-		this.ipAddr = "http://192.168.1.14"
+		this.ipAddr = "http://192.168.1.14",
+		this.devData = []
 	},
 
 	//the manner in which MM and modules communicate with eachother
 	notificationReceived: function(notification, payload, sender) {
+		_this = this
 		switch(notification) {
 			case "DOM_OBJECTS_CREATED":
-				//console.log("this.ipAddr")
 				this.sendSocketNotification('POLL_DEVICES', this.ipAddr)
 				let timer_tutorial = setInterval(()=>{
-					this.sendSocketNotification("DO_YOUR_JOB", this.count)
-					this.count++
+					_this.sendSocketNotification("DO_YOUR_JOB", this.count)
+					_this.count++
 
 
 					//If we want to update html in DOM
@@ -35,7 +35,8 @@ Module.register("MMM-Test", {
 					//countElm.innerHTML = "Count: " + this.count
 				}, 100)
 				let timer = setInterval(()=>{
-					this.sendSocketNotification("GET_STATE", this.devData)
+					console.log(_this.devData)
+					this.sendSocketNotification("GET_STATE", _this.devData)
 				}, 1000)
 				break
 		}
@@ -48,8 +49,7 @@ Module.register("MMM-Test", {
 				break
 			case "AVAIL_DEVICES":
 				//create a temporary variable to hold output from polled devices
-				let jsonData = []
-
+				console.log(this.devData)
 				//For each returned device strip to essential ID info
 				for (let i=1; i < payload.length; i++) {
 					let temp = {
@@ -57,11 +57,11 @@ Module.register("MMM-Test", {
 						"model": payload[i].model,
 						"vendor": payload[i].vendor
 					}
-					jsonData.push(temp)
+					this.devData.push(temp)
 				}
 
 				//Save the pared down data to the top level variable
-				this.devData = jsonData
+				//this.devData = jsonData
 				break
 		}
 	},
