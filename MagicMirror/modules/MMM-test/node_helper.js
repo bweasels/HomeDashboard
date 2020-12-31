@@ -24,7 +24,7 @@ module.exports = NodeHelper.create({
 
 				//Connect to the ip address & subscribe to the topic with output
 				this.ipAddress = payload
-				console.log(this.ipAddress)
+				console.log(this.client)
 				let client = mqtt.connect(this.ipAddress)
 				client.subscribe('zigbee2mqtt/bridge/config/devices')
 
@@ -41,6 +41,7 @@ module.exports = NodeHelper.create({
 					_this.sendSocketNotification("AVAIL_DEVICES", obj)
 					console.log(obj)
 				})
+				client.end()
 				break
 
 			case "GET_STATE":
@@ -50,14 +51,15 @@ module.exports = NodeHelper.create({
 					client_state.subscribe('zigbee2mqtt/'+payload[i].name)
 					client_state.on('connect', () => {
 						client_state.publish('zigbee2mqtt/'+payload[i].name+'/get', '{"state":""}')
+						console.log('zigbee2mqtt/'+payload[i].name+'/get', '{"state":""}')
 					})
-					client_state.on('message', function(topic, message) {
-						obj = JSON.parse(message)
-						console.log(obj)
-					})
-
+					//client_state.on('message', function(topic, message) {
+					//	console.log(message)
+					//	obj = JSON.parse(message)
+						//console.log(obj)
+					//})
 				}
-				client_state.off()
+				client_state.end()
 				break
 			default:
 				break;
