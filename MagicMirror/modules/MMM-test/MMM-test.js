@@ -35,7 +35,6 @@ Module.register("MMM-Test", {
 					//countElm.innerHTML = "Count: " + this.count
 				}, 100)
 				let timer = setInterval(()=>{
-					console.log(_this.devData)
 					this.sendSocketNotification("GET_STATE", _this.devData)
 				}, 1000)
 				break
@@ -48,8 +47,6 @@ Module.register("MMM-Test", {
 				elem.innerHTML = "Count: " + payload
 				break
 			case "AVAIL_DEVICES":
-				//create a temporary variable to hold output from polled devices
-				console.log(this.devData)
 				//For each returned device strip to essential ID info
 				for (let i=1; i < payload.length; i++) {
 					let temp = {
@@ -59,9 +56,6 @@ Module.register("MMM-Test", {
 					}
 					this.devData.push(temp)
 				}
-
-				//Save the pared down data to the top level variable
-				//this.devData = jsonData
 				break
 		}
 	},

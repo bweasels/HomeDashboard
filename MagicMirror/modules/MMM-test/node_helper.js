@@ -22,11 +22,10 @@ module.exports = NodeHelper.create({
 
 			//Get the list of devices upon startup
 			case "POLL_DEVICES":
-
 				//Connect to the ip address & subscribe to the topic with output
 				this.ipAddress = payload
 				this.client = mqtt.connect(this.ipAddress)
-				console.log(typeof(this.client))
+				console.log(this.client.connected)
 				this.client.subscribe('zigbee2mqtt/bridge/config/devices')
 
 				//If connected, publish to the topic to induce output
@@ -39,27 +38,28 @@ module.exports = NodeHelper.create({
 				this.client.on('message', function(topic, message) {
 					obj = JSON.parse(message)
 					_this.sendSocketNotification("AVAIL_DEVICES", obj)
-					console.log(obj)
+					_this.client.end()
 				})
+
+
 				break
 
 			case "GET_STATE":
-				let states = []
-				//let client_state = mqtt.connect(this.ipAddress)
 				console.log(payload)
 				for(let i=0; i < payload.length; i++){
-					_this.client.subscribe('zigbee2mqtt/'+payload[i].name)
-					//_this.client.on('connect', () => {
-					_this.client.publish('zigbee2mqtt/'+payload[i].name+'/get', '{"state":""}')
-						//console.log('zigbee2mqtt/'+payload[i].name+'/get', '{"state":""}')
-					//})
-					//client_state.on('message', function(topic, message) {
-					//	console.log(message)
-					//	obj = JSON.parse(message)
-						//console.log(obj)
-					//})
+					this.client = mqtt.connect(this.ipAddress)
+					this.client.on('connect', () => {
+						this.client.subscribe('zigbee2mqtt/'+payload[i].name)
+						_this.client.publish('zigbee2mqtt/'+payload[i].name+'/get', '{"state":""}')
+					})
+
+					this.client.on('message', function(topic, message) {
+						obj = JSON.parse(message)
+						console.log(obj)
+						_this.client.end()
+					})
+
 				}
-				//client_state.end()
 				break
 			default:
 				break;
