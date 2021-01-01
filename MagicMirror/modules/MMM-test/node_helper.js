@@ -45,22 +45,30 @@ module.exports = NodeHelper.create({
 				break
 
 			case "GET_STATE":
-				console.log(payload)
+				console.log(payload[0])
+				console.log(payload[1])
+				let states = []
 				for(let i=0; i < payload.length; i++){
 					this.client = mqtt.connect(this.ipAddress)
 					this.client.on('connect', () => {
-						this.client.subscribe('zigbee2mqtt/'+payload[i].name)
+						_this.client.subscribe('zigbee2mqtt/'+payload[i].name)
 						_this.client.publish('zigbee2mqtt/'+payload[i].name+'/get', '{"state":""}')
 					})
-
+					console.log(i)
 					this.client.on('message', function(topic, message) {
+						//console.log(indexer)
 						obj = JSON.parse(message)
+						//_this.sendSocketNotification("DEV_STATES", obj)
+						payload[i]["color"] = obj.color
+						payload[i]["brightness"] = obj.brightness
+						console.log(payload[i])
 						console.log(obj)
 						_this.client.end()
 					})
 
 				}
 				break
+
 			default:
 				break;
 		}
