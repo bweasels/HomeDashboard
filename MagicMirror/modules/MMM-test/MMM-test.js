@@ -35,8 +35,8 @@ Module.register("MMM-Test", {
 					//countElm.innerHTML = "Count: " + this.count
 				}, 100)
 				let timer = setInterval(()=>{
-					this.sendSocketNotification("GET_STATE", _this.devData)
-				}, 1000)
+						this.sendSocketNotification("GET_STATE", _this.devData)
+				}, 10000)
 				break
 		}
 	},

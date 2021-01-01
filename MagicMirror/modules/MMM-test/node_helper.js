@@ -11,6 +11,9 @@ module.exports = NodeHelper.create({
 	start: function() {
 		this.countDown = 10000000
 	},
+	sleep: function(ms){
+		return new Promise(resolve => setTimeout(resolve, ms))
+	},
 	socketNotificationReceived: function(notification, payload) {
 		const _this = this
 		switch(notification) {
@@ -45,28 +48,25 @@ module.exports = NodeHelper.create({
 				break
 
 			case "GET_STATE":
-				console.log(payload[0])
-				console.log(payload[1])
 				let states = []
-				for(let i=0; i < payload.length; i++){
-					this.client = mqtt.connect(this.ipAddress)
-					this.client.on('connect', () => {
-						_this.client.subscribe('zigbee2mqtt/'+payload[i].name)
-						_this.client.publish('zigbee2mqtt/'+payload[i].name+'/get', '{"state":""}')
+				payload.forEach(function(device) {
+					_this.client = mqtt.connect(_this.ipAddress)
+					_this.client.on('connect', function() {
+						_this.client.subscribe('zigbee2mqtt/' + device.name)
+						_this.client.publish('zigbee2mqtt/' + device.name + '/get', '{"state":""}')
 					})
-					console.log(i)
-					this.client.on('message', function(topic, message) {
-						//console.log(indexer)
+					_this.client.on('message', function(topic, message){
 						obj = JSON.parse(message)
-						//_this.sendSocketNotification("DEV_STATES", obj)
-						payload[i]["color"] = obj.color
-						payload[i]["brightness"] = obj.brightness
-						console.log(payload[i])
+						//device["color"] = obj.color
+						//device["brightness"] = obj.brightness
+						//device["state"]= obj.state
+						obj["device"]= topic.replace('zigbee2mqtt/', '')
 						console.log(obj)
+						_this.states.push(obj)
 						_this.client.end()
-					})
+						})
+				})
 
-				}
 				break
 
 			default:
